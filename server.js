@@ -1,48 +1,20 @@
-const express = require('express')
-const app = express()
-const path=require('path')
-const session = require('express-session')
-const exphbs=require('express-handlebars')
-const routes=require('./controllers')
-const helpers=require('/utils/helpers')
-
+const express = require('express');
+// const routes = require('./routes');
+require('dotenv').config()
 const sequelize = require('./config/connection')
-const SequelizeStore=require('connect-session-sequelize')(session.Store)
+// import sequelize connection
 
-const PORT = process.env.PORT || 3003
+const app = express();
+const PORT = process.env.PORT || 3002;
 
-const hbs = exphbs.create({helpers})
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const sess = {
-    secret: 'Super secret secret',
-    cookie: {
-      maxAge: 300000,
-      httpOnly: true,
-      secure: false,
-      sameSite: 'strict',
-    },
-    resave: false,
-    saveUninitialized: true,
-    store: new SequelizeStore({
-      db: sequelize
-    })
-  };
+// app.use(routes);
 
-
-// Inform Express.js on which template engine to use
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
-
-app.use(express.json())
-app.use(express.urlencoded)({extended:true})
-app.use(express.static(path.join(__dirnam,'public')))
-app.use(session(sess))
-app.use(routes)
-
+// sync sequelize models to the database, then turn on the server
 sequelize.sync({force:false}).then(()=>{
-    app.listen(PORT,()=>{
-        console.log(`Tech BLOG is listening in http://localhost ${PORT}`)
-    })
+app.listen(PORT, () => {
+  console.log(`Tech Blog listening on port http://localhost:${PORT}!`);
 })
-
-
+})
