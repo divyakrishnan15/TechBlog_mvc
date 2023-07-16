@@ -52,6 +52,22 @@ router.get('/:id',(req,res)=>{
     })
 })
 
+
+//User POST-----
+router.post('/',(req,res)=>{
+    User.create({
+        username:req.body.username,
+        email:req.body.email,
+        password:req.body.password,
+        twitter:req.body.twitter,
+        github:req.body.github,
+    }).then((userData)=>{
+        res.json(userData)
+    }).catch((err)=>{
+        res.status(500).json(err)
+    })
+})
+
 module.exports=router
 
 // +----+----------+---------------+----------+------------------+------------+

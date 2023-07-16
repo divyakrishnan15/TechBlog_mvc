@@ -24,9 +24,11 @@ router.get('/',(req,res)=>{
     })
 })
 
+
+
 router.get('/:id',(req,res)=>{
     Post.findOne({
-        attributes:['id','title','created_at','post_content'],
+        attributes:['id','title','created_at','post_content','user_id'],
         where:{
             id:req.params.id
         },
@@ -48,6 +50,27 @@ router.get('/:id',(req,res)=>{
         res.status(500).json(err)
     })
 })
+
+
+
+
+//POST ROUTER --- POST
+router.post('/',(req,res)=>{
+    Post.create({
+        title:req.body.title,
+        post_content:req.body.post_content,
+        user_id:req.body.user_id,
+    }).then((postData)=>{
+        res.json(postData)
+    }).catch((err)=>{
+        res.status(500).json(err)
+    })
+})
+
+
+
+
+
 
 module.exports=router
 
