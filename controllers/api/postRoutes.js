@@ -24,6 +24,31 @@ router.get('/',(req,res)=>{
     })
 })
 
+router.get('/:id',(req,res)=>{
+    Post.findOne({
+        attributes:['id','title','created_at','post_content'],
+        where:{
+            id:req.params.id
+        },
+        include:{
+            model:User,
+            attributes:['username','twitter','github','email','password']
+        },
+        include:{
+            model:Comment,
+            attributes:['comment_text','created_at','updated_at']
+        }
+    }).then((postData)=>{
+        if(!postData){
+            res.status(404).json({message:'No Post Data found'})
+            return
+        }
+        res.json(postData)
+    }).catch((err)=>{
+        res.status(500).json(err)
+    })
+})
+
 module.exports=router
 
 
