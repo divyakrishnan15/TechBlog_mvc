@@ -4,7 +4,7 @@ const {Post,User, Comment}=require('../models')
 
 router.get('/',(req,res)=>{
     // console.log("req.session = ",req.session)
-    console.log("POST RES===== ",res)
+    // console.log("POST RES===== ",res)
     Post.findAll({
         attributes: [
             'id',
@@ -21,7 +21,7 @@ router.get('/',(req,res)=>{
             attributes:['comment_text','created_at','updated_at']
         }
     }).then((homeData)=>{
-        console.log("homeData = ",homeData)
+        // console.log("homeData = ",homeData)
         if(!postData){
             res.status(404).json({message:`Post Not found`})
         }
