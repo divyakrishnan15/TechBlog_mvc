@@ -18,6 +18,40 @@ router.get('/',(req,res)=>{
     })
 })
 
+
+
+//GET ONE
+router.get('/:id',(req,res)=>{
+    User.findOne({
+        attributes:{exclude:['password']},
+        where:{
+            id:req.params.id
+        },
+        // include: [
+        //     {
+        //       model: Post,
+        //       attributes: ['id', 'title', 'post_content', 'created_at']
+        //     },
+        //     {
+        //         model: Comment,
+        //         attributes: ['id', 'comment_text', 'created_at'],
+        //         include: {
+        //           model: Post,
+        //           attributes: ['title']
+        //         }
+        //     }
+        //   ]
+    }).then((userData)=>{
+        if(!userData){
+            res.status(404).json({message:`No USER data found with id = ${req.params.id}`})
+            return
+        }
+        res.json(userData)
+    }).catch((err)=>{
+        res.status(500).json(err)
+    })
+})
+
 module.exports=router
 
 // +----+----------+---------------+----------+------------------+------------+

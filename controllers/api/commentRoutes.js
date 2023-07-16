@@ -24,6 +24,33 @@ router.get('/',(req,res)=>{
     })
 })
 
+
+//COMMENT GET ONE
+router.get('/:id',(req,res)=>{
+    Comment.findOne({
+        where:{
+            id:req.params.id
+        },
+        attributes:['user_id','post_id','comment_text','created_at','updated_at'],
+            include:{
+                model:User,
+                attributes:{exlude:['password']}
+            },
+            include:{
+                model:Post,
+                attributes:['id','title','created_at','post_content'],
+            },
+    }).then((commentData)=>{
+        if(!commentData){
+            res.status(404).json({message:'No Comment found'})
+            return
+        }
+        res.json(commentData)
+    }).catch((err)=>{
+        res.status(500).json(err)
+    })
+})
+
 module.exports=router
 
 
