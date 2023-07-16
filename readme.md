@@ -48,14 +48,22 @@
  
  ## Description :  
  <a name="Description"></a>  
-1. I start the application, I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-2. I choose to view all departments, I am presented with a formatted table showing department names and department ids
-3. I choose to view all roles, I am presented with the job title, role id, the department that role belongs to, and the salary for that role
-4. I choose to view all employees, I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-5. I choose to add a department, I am prompted to enter the name of the department and that department is added to the database
-6. I choose to add a role, I am prompted to enter the name, salary, and department for the role and that role is added to the database
-7. I choose to add an employee, I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-8. I choose to update an employee role, I am prompted to select an employee to update and their new role and this information is updated in the database
+1.In a CMS-style blog site when I visit the site for the first time, I am presented with the homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
+2. I click on the homepage option, I am taken to the homepage
+3. I click on any other links in the navigation, I am prompted to either sign up or sign in
+4. I choose to sign up, I am prompted to create a username and password
+5. I click on the sign-up button, my user credentials are saved and I am logged into the site
+6. I revisit the site at a later time and choose to sign in, I am prompted to enter my username and password
+7. I am signed in to the site, I see navigation links for the homepage, the dashboard, and the option to log out
+8. I click on the homepage option in the navigation, I am taken to the homepage and presented with existing blog posts that include the post title and the date created
+9. I click on an existing blog post, I am presented with the post title, contents, post creator’s username, and date created for that post and have the option to leave a comment
+10. I enter a comment and click on the submit button while signed in, the comment is saved and the post is updated to display the comment, the comment creator’s username, and the date created
+11. I click on the dashboard option in the navigation, I am taken to the dashboard and presented with any blog posts I have already created and the option to add a new blog post
+12. I click on the button to add a new blog post, I am prompted to enter both a title and contents for my blog post
+13. I click on the button to create a new blog post, the title and contents of my post are saved and I am taken back to an updated dashboard with my new blog post
+14. I click on one of my existing posts in the dashboard, I am able to delete or update my post and taken back to an updated dashboard
+15. I click on the logout option in the navigation, I am signed out of the site
+16. I am idle on the site for more than a set time, I am able to view posts and comments but I am prompted to log in again before I can add, update, or delete posts
 
  ## Questions :  
  <a name="Questions"></a> 
@@ -93,24 +101,6 @@ npm i
  <a name="Usage"></a> 
  Download the code to your local. 
  Perform **npm i** to install all the packages. 
- Answer the questions asked in the command prompt like(
-   1. View All Departments
-   2. View All Roles
-   3. View All Employees
-   4. Add a Department
-   5. Add a Role
-   6. Add an Employee
-   7. Update an Employee Role
-   8. Update Employee Managers
-   9. View Employees by Manager
-   10.View Employees by Department
-   11.View combined salaries of All Employees in that Department
-   12.Delete Employee
-   13.Delete Role
-   14.Delete Department
-   15.Filter Employees by Manager
-   16.Filter Employees by Department
-   17.Quit
  
    
  ## Watchme Video- (click on the video to play) : 

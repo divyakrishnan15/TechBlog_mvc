@@ -6,3 +6,5 @@ router.get('/',(req,res)=>{
     // console.log("req.session = ",req.session)
     
 })
+
+module.exports=router
