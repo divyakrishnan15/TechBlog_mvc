@@ -1,18 +1,27 @@
 const express = require('express');
-const routes = require('./controllers');
-require('dotenv').config()
-const sequelize = require('./config/connection')
-const path = require('path');
-const bodyParser = require('body-parser');
-
 const app = express();
+const bodyParser = require('body-parser');
+const exphbs = require('express-handlebars')
+const path = require('path');
+
+require('dotenv').config()
+const hbs = exphbs.create({});
+
+const routes = require('./controllers');
+const sequelize = require('./config/connection')
 const PORT = process.env.PORT || 3002;
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json()) ///post empty
+app.use(express.static(path.join(__dirname,'public')))
 app.use(routes);
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+
 
 
 // sync sequelize models to the database, then turn on the server
