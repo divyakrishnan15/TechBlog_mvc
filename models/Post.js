@@ -9,7 +9,7 @@ Post.init(
     {
       id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         primaryKey: true,
         autoIncrement: true
       },
@@ -27,7 +27,7 @@ Post.init(
           model: 'user',
           key: 'id'
         }
-      }
+      },
     },
     {
       sequelize,

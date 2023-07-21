@@ -7,7 +7,8 @@ router.get('/',(req,res)=>{
         attributes:['user_id','post_id','comment_text','created_at','updated_at'],
         include:{
             model:User,
-            attributes:{exlude:['password']}
+            // attributes:{exlude:['password']}
+            attributes:['user_name','twitter','github','email'],
         },
         include:{
             model:Post,
@@ -19,8 +20,16 @@ router.get('/',(req,res)=>{
             return
         }
         res.json(commentData)
+
+        // const comments = postData.map(post => post.get({ plain: true }));
+        // res.render('dashboard', {
+        //     comments,
+        //     loggedIn: req.session.loggedIn
+        //   });
+
+
     }).catch((err)=>{
-        res.status(500).json(err)
+        res.json(err)
     })
 })
 
@@ -45,14 +54,14 @@ router.get('/:id',(req,res)=>{
             res.status(404).json({message:'No Comment found'})
             return
         }
-        res.json(commentData)
+        // res.json(commentData)
     }).catch((err)=>{
         res.status(500).json(err)
     })
 })
 
 
-//COMMENT POST ----
+//COMMENT POST comments data----
 router.post('/',(req,res)=>{
     Comment.create({
         comment_text:req.body.comment_text,
@@ -64,6 +73,61 @@ router.post('/',(req,res)=>{
         res.status(500).json(err)
     })
 })
+
+
+
+//UPDATE COMMENTS data
+router.put('/:id',(req,res)=>{
+    Comment.update(req.body,{
+        where:{
+            id:req.params.id
+        },
+        // attributes:['user_id','post_id','comment_text','created_at','updated_at'],
+        // include:{
+        //     model:User,
+        //     attributes:{exlude:['password']}
+        // },
+        // include:{
+        //     model:Post,
+        //     attributes:['id','title','created_at','post_content'],
+        // },
+        }).then((commentData)=>{
+            if(!commentData){
+                res.status(404).json({message:'No Comment found'})
+                return
+            }
+            res.json({message:`COMMENTS data UPDATED with id = ${req.params.id}`})
+        }).catch((err)=>{
+            res.status(500).json(err)
+    })
+})
+
+
+//DELETE
+router.delete('/:id',(req,res)=>{
+    Comment.destroy({
+        where:{
+            id:req.params.id
+        },
+    }).then((commentData)=>{
+      if(!commentData){
+      res.status(404).json({message:`No category was found with the ${req.params.id}`});
+    return
+    }
+    res.json({message:`Successfully DELETED Category with id= ${req.params.id}`})
+  }).catch((err)=>{
+    console.log(err)
+    res.status(500).json(err)
+  })
+});
+
+
+
+
+
+
+
+
 
 module.exports=router
 

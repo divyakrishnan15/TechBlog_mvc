@@ -1,0 +1,32 @@
+
+{{#each posts as |post|}}
+
+<div class="m-5">
+    <div class="accordion" id="myAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne">{{post.title}}</button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                <div class="card-body bg-dark">
+
+                    <a href="/posts/{{id}}" class="text-decoration-none">
+                        <pre>
+                            <code class="text-white">
+                                {{post.post_content}}
+                            </code>
+                        </pre>
+                    </a>
+
+                </div>
+                <div class="float-right"> -{{post.created_at}}</div>
+                <div class="float-right"> -{{post.user_id}}{{post.username}}</div>
+
+
+                {{!-- <a href="/edit" class="btn btn-primary my-2 my-sm-0 btn-md">Add Comment</a> --}}
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
