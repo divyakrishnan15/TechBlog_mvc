@@ -16,7 +16,7 @@ User.init(
         // define an id column
         id: {
           type: DataTypes.INTEGER,
-          allowNull: false,
+          allowNull: true,
           primaryKey: true,
           autoIncrement: true
         },
@@ -49,7 +49,7 @@ User.init(
           validate: {
             len: [4]
           }
-        }
+        },
       },
   {
       hooks: {

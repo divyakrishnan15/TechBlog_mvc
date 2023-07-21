@@ -1,79 +1,146 @@
-const router = require('express').Router()
-const {User,Post,Comment}=require('../../models')
+const router = require("express").Router();
+const { User, Post, Comment } = require("../../models");
+const { update } = require("../../models/User");
 
 //POST GET
-router.get('/',(req,res)=>{
-    Post.findAll({
-        attributes:['id','title','created_at','post_content'],
-        include:{
-            model:User,
-            attributes:['username','twitter','github','email','password']
-        },
-        include:{
-            model:Comment,
-            attributes:['comment_text','created_at','updated_at']
-        }
-    }).then((postData)=>{
-        if(!postData){
-            res.status(404).json({message:'No Post Data found'})
-            return
-        }
-        res.json(postData)
-    }).catch((err)=>{
-        res.status(500).json(err)
+router.get("/", (req, res) => {
+  Post.findAll({
+    attributes: ["id", "title", "created_at", "post_content", "user_id"],
+    include: {
+      model: User,
+      attributes: ["username", "twitter", "github", "email"],
+    },
+    include: {
+      model: Comment,
+      attributes: ["comment_text", "created_at", "updated_at"],
+    },
+  })
+    .then((postData) => {
+      if (!postData) {
+        res.status(404).json({ message: "No Post Data found" });
+        return;
+      }
+      res.json(postData);
+
+      // const dashboard = postData.get({ plain: true });
+
+      // res.render('dashboard', { dashboard });
     })
-})
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
 
+router.get("/:id", (req, res) => {
+  Post.findOne({
+    attributes: ["id", "title", "created_at", "post_content", "user_id"],
+    where: {
+      id: req.params.id,
+    },
+    include: {
+      model: User,
+      attributes: [
+        "username",
+        "twitter",
+        "github",
+        "email",
+        "password",
+        "created_at",
+        "updated_at",
+      ],
+    },
+    include: {
+      model: Comment,
+      attributes: ["comment_text", "created_at", "updated_at"],
+    },
+  })
+    .then((postData) => {
+      if (!postData) {
+        res.status(404).json({ message: "No Post Data found" });
+        return;
+      }
+      res.json(postData);
 
-
-router.get('/:id',(req,res)=>{
-    Post.findOne({
-        attributes:['id','title','created_at','post_content','user_id'],
-        where:{
-            id:req.params.id
-        },
-        include:{
-            model:User,
-            attributes:['username','twitter','github','email','password']
-        },
-        include:{
-            model:Comment,
-            attributes:['comment_text','created_at','updated_at']
-        }
-    }).then((postData)=>{
-        if(!postData){
-            res.status(404).json({message:'No Post Data found'})
-            return
-        }
-        res.json(postData)
-    }).catch((err)=>{
-        res.status(500).json(err)
+      // const dashboard = postData.get({ plain: true });
+      // res.render('dashboard', { dashboard });
+      // res.render('dashboard', {
+      //     dashboard,
+      //     loggedIn: req.session.loggedIn
+      //   });
     })
-})
-
-
-
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
 
 //POST ROUTER --- POST
-router.post('/',(req,res)=>{
-    Post.create({
-        title:req.body.title,
-        post_content:req.body.post_content,
-        user_id:req.body.user_id,
-    }).then((postData)=>{
-        res.json(postData)
-    }).catch((err)=>{
-        res.status(500).json(err)
+router.post("/", (req, res) => {
+  Post.create({
+    title: req.body.title,
+    post_content: req.body.post_content,
+    user_id: req.body.user_id,
+  })
+    .then((postData) => {
+      res.json(postData);
     })
-})
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
 
+//UPDATE POST
+router.put("/:id", (req, res) => {
+  Post.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+    // attributes:['id','title','created_at','post_content','user_id'],
+    // include:{
+    //     model:User,
+    //     attributes:['username','twitter','github','email','password','created_at','updated_at']
+    // },
+    // include:{
+    //     model:Comment,
+    //     attributes:['comment_text','created_at','updated_at']
+    // }
+  })
+    .then((postData) => {
+      if (!postData) {
+        res.status(404).json({ message: "No Post Data found" });
+        return;
+      }
+      res.json({ message: `POST data UPDATED with id = ${req.params.id}` });
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
 
+//DELETE POST ROUTE
+router.delete("/:id", (req, res) => {
+  Post.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((postData) => {
+      if (!postData) {
+        res
+          .status(404)
+          .json({ message: `No category was found with the ${req.params.id}` });
+        return;
+      }
+      res.json({
+        message: `Successfully DELETED Category with id= ${req.params.id}`,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
-
-
-
-module.exports=router
-
+module.exports = router;
 
 // +----+---------------+------------------------------------------------------------------+---------+---------------------+---------------------+
 // | id | title         | post_content                                                     | user_id | created_at          | updated_at          |
