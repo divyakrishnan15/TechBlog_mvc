@@ -1,19 +1,185 @@
-<h2>Login</h2>
+<div class="card w-50 align-middle">
+  <div class="card-body">
 
-<form class="form login-form">
-  <div class="form-group">
-    <label for="email-login">email:</label>
-    <input class="form-input" type="text" id="email-login" />
-  </div>
-  
-  <div class="form-group">
-    <label for="password-login">password:</label>
-    <input class="form-input" type="password" id="password-login" />
-  </div>
+    
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link active"
+          id="login-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#login"
+          type="button"
+          role="tab"
+          aria-controls="home"
+          aria-selected="true"
+        >Login</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="signup-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#signup"
+          type="button"
+          role="tab"
+          aria-controls="profile"
+          aria-selected="false"
+        >Signup</button>
+      </li>
+    </ul>
 
-  <div class="form-group">
-    <button class="btn btn-primary" type="submit">login</button>
-  </div>
-</form>
 
-<script src="/js/login.js"></script>
+    <div class="tab-content" id="myTabContent">
+      <div
+        class="tab-pane fade show active"
+        id="login"
+        role="tabpanel"
+        aria-labelledby="login-tab"
+      >
+
+
+        <form class="form login-form">
+              <input
+                type="text"
+                class="form-control mt-3"
+                id="loginUsername"
+                placeholder="username"
+                required
+              />
+
+              <input
+              type="email"
+              class="form-control mt-2"
+              id="email"
+              placeholder="email"
+              required
+            />
+
+              <input
+                type="password"
+                class="form-control mt-2 mb-3"
+                id="loginPassword"
+                placeholder="password"
+                required
+              />
+
+              <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+      </div>
+
+
+
+      <div
+        class="tab-pane fade"
+        id="signup"
+        role="tabpanel"
+        aria-labelledby="signup-tab"
+      >
+        <form class="form signup-form">
+
+          <input
+            type="text"
+            class="form-control mt-2"
+            id="signupUsername"
+            placeholder="username"
+            required
+          />
+
+          <input
+            type="email"
+            class="form-control mt-2"
+            id="email"
+            placeholder="email"
+            required
+          />
+
+          <input
+            type="password"
+            class="form-control mt-2 mb-3"
+            id="signupPassword"
+            placeholder="password"
+            required
+          />
+
+          <button class="btn btn-primary" type="submit">Signup</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- <script src="/js/login.js"></script> --}}
+
+<script>
+
+  //UI LOGIN
+  const loginFormHandler = (event) => {
+  event.preventDefault();
+
+  // Collect values from the login form
+  const username = document.querySelector('#loginUsername').value.trim();
+  const email = document.querySelector('#email').value.trim();
+  const password = document.querySelector('#loginPassword').value.trim();
+
+  if (username && email && password) {
+    // Send a POST request to the API endpoint
+    fetch('http://localhost:3001/api/users/login', {
+      method: 'POST',
+      body: JSON.stringify({ username,email, password }),
+      headers: { 'Content-Type': 'application/json' },
+    }).then((loginData)=>loginData.json()).then((loginData)=>{
+      if (loginData) {
+        document.location.replace('/dashboard');
+      } else {
+        alert(response.statusText);
+      }
+    }).catch((err)=>{
+      console.log(err)
+    })
+
+    
+  }
+};
+
+
+//UI SIGN UP
+const signupFormHandler = (event) => {
+  event.preventDefault();
+
+  const username = document.querySelector('#signupUsername').value.trim();
+  const email = document.querySelector('#email').value.trim();
+  const password = document.querySelector('#signupPassword').value.trim();
+
+  if (username && email && password) {
+    fetch('http://localhost:3001/api/users', {
+      method: 'POST',
+      body: JSON.stringify({ username, email, password }),
+      headers: { 'Content-Type': 'application/json' },
+    }).then((signUpData)=>{
+        console.log('login resposne = ',signUpData)
+
+        if (signUpData) {
+          console.log('sign up success!')
+          document.location.replace('/dashboard')
+        } else {
+          alert(response.statusText);
+        }
+    }).catch((err)=>{
+      console.log(err)
+    })
+
+  }
+};
+
+
+
+document
+  .querySelector('.login-form')
+  .addEventListener('submit', loginFormHandler);
+
+document
+  .querySelector('.signup-form')
+  .addEventListener('submit', signupFormHandler);
+
+</script>

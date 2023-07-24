@@ -53,23 +53,7 @@ router.get('/:id',(req,res)=>{
 })
 
 
-//User POST USER data-----
-router.post('/',(req,res)=>{
-    User.create({
-        username:req.body.username,
-        email:req.body.email,
-        password:req.body.password,
-        twitter:req.body.twitter,
-        github:req.body.github,
-    }).then((userData)=>{
-        req.session.save(() => {
-            req.session.loggedIn = true;
-        }) 
-        res.json(userData)
-    }).catch((err)=>{
-        res.status(500).json(err)
-    })
-})
+
 
 
 //UPDATE USER data------
@@ -125,103 +109,74 @@ router.delete('/:id',(req,res)=>{
 });
 
 
-// Login
-// router.post('/login', async (req, res) => {
-//     try {
-//       const dbUserData = await User.findOne({
-//         where: {
-//           email: req.body.email,
-//         },
-//       });
-  
-//       if (!dbUserData) {
-//         res
-//           .status(400)
-//           .json({ message: 'Incorrect email or password. Please try again!' });
-//         return;
-//       }
-  
-//       const validPassword = await dbUserData.checkPassword(req.body.password);
-  
-//       if (!validPassword) {
-//         res
-//           .status(400)
-//           .json({ message: 'Incorrect email or password. Please try again!' });
-//         return;
-//       }
-  
-//       req.session.save(() => {
-//         req.session.loggedIn = true;
-//         console.log(
-//           '🚀 ~ file: user-routes.js ~ line 57 ~ req.session.save ~ req.session.cookie',
-//           req.session.cookie
-//         );
-  
-//         res
-//           .status(200)
-//           .json({ user: dbUserData, message: 'You are now logged in!' });
-//       });
-//     } catch (err) {
-//       console.log(err);
-//       res.status(500).json(err);
-//     }
-//   });
-  
+//User POST USER data-----
+router.post('/',(req,res)=>{
+  console.log("user sign up route - ",req.body)
 
+    User.create({
+        username:req.body.username,
+        email:req.body.email,
+        password:req.body.password
+    }).then((userData)=>{
+
+        req.session.save(() => {
+          req.session.username = userData.id,
+          req.session.email = userData.id,
+          req.session.loggedIn = true;
+        }) 
+
+
+        res.json(userData)
+        console.log('sign up .then =',userData)
+
+    }).catch((err)=>{
+        res.json(err)
+    })
+})
+
+
+
+//USER LOGIN
+router.post('/login', (req, res) => {
   
-//   // Logout
-//   router.post('/logout', (req, res) => {
-//     if (req.session.loggedIn) {
-//       req.session.destroy(() => {
-//         res.status(204).end();
-//       });
-//     } else {
-//       res.status(404).end();
-//     }
-//   });
+    User.findOne({ 
+      where: { email: req.body.email } 
+    }).then((loginData)=>{
+      if (!loginData) {
+        res
+          .status(400)
+          .json({ message: 'Incorrect email or password, please try again /or SIGN UP' });
+        return;
+      }
   
-
-router.post('/login', async (req, res) => {
-  try {
-    // TODO: Add a comment describing the functionality of this expression
-    const userData = await User.findOne({ where: { email: req.body.email } });
-
-    if (!userData) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
-      return;
-    }
-
-    // TODO: Add a comment describing the functionality of this expression
-    const validPassword = await userData.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
-      return;
-    }
-
-    // TODO: Add a comment describing the functionality of this method
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
+      const validPassword = loginData.checkPassword(req.body.password);
+  
+      if (!validPassword) {
+        res
+          .status(400)
+          .json({ message: 'Incorrect email or password, please try again' });
+        return;
+      }
+  
+      req.session.save(() => {
+        req.session.user_id = loginData.id;
+        req.session.username = loginData.username;
+        req.session.logged_in = true;
+      })
+        
+        res.json({ user: loginData, message: 'You are now logged in!' });
       
-      res.json({ user: userData, message: 'You are now logged in!' });
-    });
 
-  } catch (err) {
+    }).catch((err)=> {
     res.status(400).json(err);
-  }
-});
+  })
+})
 
 
 
 
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
-    // TODO: Add a comment describing the functionality of this method
     req.session.destroy(() => {
       res.status(204).end();
     });
@@ -229,6 +184,9 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
+
+
+
 
 
 module.exports=router
