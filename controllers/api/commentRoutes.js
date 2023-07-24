@@ -4,7 +4,8 @@ const {User,Post,Comment} = require('../../models')
 //COMMENT GET
 router.get('/',(req,res)=>{
     Comment.findAll({
-        attributes:['user_id','post_id','comment_text','created_at','updated_at'],
+        // attributes:['user_id','post_id','comment_text','created_at','updated_at'],
+        attributes:['id','user_id','post_id','comment_text','created_at','updated_at'],
         include:{
             model:User,
             // attributes:{exlude:['password']}
@@ -22,7 +23,7 @@ router.get('/',(req,res)=>{
         res.json(commentData)
 
         // const comments = postData.map(post => post.get({ plain: true }));
-        // res.render('dashboard', {
+        // res.render('post', {
         //     comments,
         //     loggedIn: req.session.loggedIn
         //   });
@@ -40,7 +41,7 @@ router.get('/:id',(req,res)=>{
         where:{
             id:req.params.id
         },
-        attributes:['user_id','post_id','comment_text','created_at','updated_at'],
+        attributes:['id','user_id','post_id','comment_text','created_at','updated_at'],
             include:{
                 model:User,
                 attributes:{exlude:['password']}
@@ -82,6 +83,7 @@ router.put('/:id',(req,res)=>{
         where:{
             id:req.params.id
         },
+        attributes:['id','user_id','post_id','comment_text','created_at','updated_at'],
         // attributes:['user_id','post_id','comment_text','created_at','updated_at'],
         // include:{
         //     model:User,
@@ -109,6 +111,7 @@ router.delete('/:id',(req,res)=>{
         where:{
             id:req.params.id
         },
+        attributes:['id','user_id','post_id','comment_text','created_at','updated_at'],
     }).then((commentData)=>{
       if(!commentData){
       res.status(404).json({message:`No category was found with the ${req.params.id}`});

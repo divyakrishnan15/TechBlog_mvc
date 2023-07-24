@@ -22,9 +22,9 @@ router.get("/", (req, res) => {
       }
       res.json(postData);
 
-      // const dashboard = postData.get({ plain: true });
+      // const post = postData.get({ plain: true });
 
-      // res.render('dashboard', { dashboard });
+      // res.render('post', { post });
     })
     .catch((err) => {
       res.status(500).json(err);
@@ -61,10 +61,10 @@ router.get("/:id", (req, res) => {
       }
       res.json(postData);
 
-      // const dashboard = postData.get({ plain: true });
-      // res.render('dashboard', { dashboard });
-      // res.render('dashboard', {
-      //     dashboard,
+      // const post = postData.get({ plain: true });
+      // res.render('post', { post });
+      // res.render('post', {
+      //     post,
       //     loggedIn: req.session.loggedIn
       //   });
     })
@@ -90,6 +90,7 @@ router.post("/", (req, res) => {
 
 //UPDATE POST
 router.put("/:id", (req, res) => {
+  console.log(req.body)
   Post.update(req.body, {
     where: {
       id: req.params.id,

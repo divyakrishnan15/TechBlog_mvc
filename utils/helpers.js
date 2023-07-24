@@ -11,4 +11,8 @@ module.exports = {
 
     return `<span for="img" aria-label="book">${book}</span>`;
   },
+  format_date: (date) => {
+    // We use the 'toLocaleTimeString()' method to format the time as H:MM:SS AM/PM
+    return date.toLocaleDateString();
+  },
 }; 

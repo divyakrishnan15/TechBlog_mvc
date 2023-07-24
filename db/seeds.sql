@@ -18,7 +18,7 @@ VALUES('james','james Twitter','jamesGit','james5@gmail.com','testt12345'),
 
 
 INSERT INTO post(title,post_content,user_id,created_at,updated_at) 
-VALUES('1. How to do FACTORIAL of 5 in javascript? ','var factorial=(num)=>{
+VALUES('How to do FACTORIAL of 5 in javascript? ','var factorial=(num)=>{
                         
                                             var res=1
                                         
@@ -29,7 +29,7 @@ VALUES('1. How to do FACTORIAL of 5 in javascript? ','var factorial=(num)=>{
                                         }
                                         num=5
                                         console.log(factorial(num))',1,'2023-07-27','2023-07-28'),
-('2. How to find maximum number in an array arr=[1,2,9,7,5]','var maxNum = (arr)=>{
+('How to find maximum number in an array arr=[1,2,9,7,5]','var maxNum = (arr)=>{
                                             var max = arr[0];
                                             // var max=0
                                         
@@ -63,7 +63,7 @@ VALUES('1. How to do FACTORIAL of 5 in javascript? ','var factorial=(num)=>{
                                         
                                         var arr =[1,2,9,7,5]
                                         console.log(maxNum(arr))',1,'2023-07-27','2023-07-28'),
-('3. How to find PALINDROME of a string','var palindrome=(str)=>{
+('How to find PALINDROME of a string','var palindrome=(str)=>{
                                             var revStr=str.split('').reverse().join('')
                                             console.log(revStr)
                                         

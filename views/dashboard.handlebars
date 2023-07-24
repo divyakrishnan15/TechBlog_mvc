@@ -1,154 +1,161 @@
-<div id="page-wrapper" class="container">
-
-  {{!-- <div class="m-5"> --}}
-
-    <div id="page-wrapper" class="container mt-5 w-100 signup">
-      {{!-- <h1 style="color:green">Arrays : </h1> --}}
-      <div class="card-body">
-        <img class="card-img-top" src="../public/Asset/image4.png" alt="Card image" style="width:100%">
-        <div class="card-body">
-          <h4 class="card-title">{{dashboard.title}}</h4>
-
-
-          <div class="card-body bg-dark rounded">
-            <pre>
-                <code class="text-white">
-                      {{dashboard.post_content}}
-                </code>
-            </pre>
-          </div>
-
-          {{!-- <div class="float-right"> - posted by Divya 19-07-2023 5pm</div> --}}
-          {{!-- <button class="btn btn-primary my-2 my-sm-2 btn-md" type="submit">Add Comment</button> --}}
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-</div>
+<div id="addPostModal">
+    {{#if true}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Post</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
 
 
+                    <form onsubmit="addPostForm" id="addPostFormId">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Title:</label>
+                            <input type="text" class="form-control postTitle font-monospace fs-4" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Code:</label>
+                            {{!-- <textarea class="form-control postMsg" id="message-text"></textarea> --}}
+                                        <pre class="form-control postMsg card-body rounded text-dark border" contenteditable="true"></pre>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary postSubmitBtn">Add Post</button>
+                        </div>
+                    </form>
 
 
-<!-- //comment form -->
-
-<div id="page-wrapper" class="container mt-5 w-75 signup">
-  <h4>Comment : </h4>
-  <form>
-    {{!-- <div class="form-group row">
-      <label for="inputEmail3" class="col-sm-2 col-form-label">Title :</label>
-      <div class="col-sm-10">
-        <input type="Text" class="form-control" id="inputEmail3" placeholder="Title">
-      </div>
-    </div> --}}
-
-    <div class="form-group">
-      {{!-- <label for="exampleFormControlTextarea1">Your Code/Comment:</label> --}}
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-    </div>
-
-    <div class="form-group row my-3">
-      <div class="col-sm-10">
-        <button type="submit" class="btn btn-primary">Post Your Comment</button>
-      </div>
-    </div>
-  </form>
-</div>
-
-
-
-
-
-
-<!-- //DISPLAY ALL COMMENTS -->
-<div id="page-wrapper" class="container mt-3 w-100 comments"></div>
-{{!-- <div class="container mt-5 w-100"> --}}
-  <div class="row d-flex justify-content-center">
-    <div class="col-md-8">
-      <div class="headings d-flex justify-content-between align-items-center mb-3">
-        {{!-- <h5>Comments</h5> --}}
-
-        {{!-- <div class="buttons">
-          <span class="badge bg-white d-flex flex-row align-items-center">
-            <span class="text-primary">Comments "ON"</span>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                </div>
             </div>
-          </span>
-        </div> --}}
-
-      </div>
-
-      {{#each dashboard.comments as |comment|}}
-      <div class="card p-3 shadow p-3 mb-3 bg-white rounded">
-
-        <div class="d-flex justify-content-between align-items-center ">
-          <div class="user d-flex flex-row align-items-center">
-            <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
-            <span><small class="font-weight-bold text-primary">{{comment.comment_text}}</small> <small
-                class="font-weight-bold">{{comment.comment_text}}</small></span>
-          </div>
-          <small>2 days ago</small>
         </div>
+    </div>
+</div>
+{{/if}}
 
 
-
-        <div class="action d-flex justify-content-between mt-2 align-items-center">
-
-          <div class="reply px-4">
-            <small>Remove</small>
-            <span class="dots"></span>
-            <small>Reply</small>
-            <span class="dots"></span>
-            <small>Translate</small>
-          </div>
-
-          <div class="icons align-items-center">
-            <i class="fa fa-star text-warning"></i>
-            <i class="fa fa-check-circle-o check-icon"></i>
-          </div>
-
-        </div>
-
-
-      </div>
-      <br />
-      {{/each}}
+<div class="container">
+    <div class="accordion" id="accordionExample">
+        <h1>Dashboard:     <button type="button" class="btn btn-success float-end" data-toggle="modal" data-target="#exampleModal"
+        data-whatever="@mdo">Add Post</button></h1>
+        {{#each posts as |userpost|}}
+        {{>dashboard_user_allpost}}
+        {{/each}}
 
     </div>
-  </div>
-
 </div>
 
 
 
+<script>
+
+    const postTitleEle = document.querySelector('.postTitle')
+    const postMsgEle = document.querySelector('.postMsg')
+    const addPostFormEle = document.querySelector('#addPostFormId')
+
+    const userPostUpdateEle = document.querySelector('.userPostUpdate')
+    const userPostDeleteEle = document.querySelector('.userPostDelete')
+
+    const delID = document.location.toString().split('/')[document.location.toString().split('/').length-1]
+    console.log("delID = ",delID)
+
+            function addUserPostForm(event) {
+                event.preventDefault()
+
+                fetch('http://localhost:3001/api/posts', {
+                    method: "POST",
+                    body: JSON.stringify({
+                        "title": postTitleEle.value,
+                        "post_content": postMsgEle.innerText,
+                        "user_id": 1
+                    }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then((adPostData) => {
+                    console.log("add POst data = ", adPostData)
+                    document.location.reload()
+                }).catch((err) => {
+                    console.log(err)
+                })
+            }
+
+
+            addPostFormEle.addEventListener('submit', addUserPostForm)
+
+
+</script>
 
 
 
 
+<style>
+    body {}
 
+    .accordion {
+        margin: 40px 0;
+    }
 
+    .accordion .item {
+        border: none;
+        margin-bottom: 50px;
+        background: none;
+    }
 
-{{!-- <section class="container"> --}}
-  {{!-- <h3 class="gallery-name">{{gallery.name}}</h3> --}}
-  {{!-- <h4>Opening Hour: {{format_time gallery.starting_date}}</h4> --}}
-  {{!-- <h4>Closing Hour: {{format_time gallery.ending_date}}</h4> --}}
-  <!-- If the user is logged in, render the gallery content -->
-  {{!-- {{#if loggedIn}} --}}
-  {{!-- <section class="flex-row justify-center"> --}}
-    {{!-- {{#each dashboard as |i|}} --}}
-    {{!-- {{> }} --}}
-    {{!-- <h4>{{title}}</h4> --}}
-    {{!--
-    <pre>{{post_content}}</pre> --}}
-    {{!-- {{/each}} --}}
-    {{!--
-  </section> --}}
-  {{!--
-</section> --}}
-<!-- Otherwise, provide a link to login -->
-{{!-- {{else}} --}}
-{{!-- <a href="/login">You must login first to view this page</a> --}}
-{{!-- {{/if}} --}}
+    .t-p {
+        color:black;
+        padding: 40px 30px 0px 30px;
+        background:rgba(193, 206, 216, 0.3);
+    }
+
+    .accordion .item .item-header h2 button.btn.btn-link {
+        background: #333435;
+        color: white;
+        border-radius: 0px;
+        font-family: 'Poppins';
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 2.5;
+        text-decoration: none;
+    }
+
+    .accordion .item .item-header {
+        border-bottom: none;
+        background: transparent;
+        padding: 0px;
+        margin: 2px;
+    }
+
+    .accordion .item .item-header h2 button {
+        color: white;
+        font-size: 20px;
+        padding: 15px;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    .accordion .item .item-header h2 .downarrow {
+        float: right;
+        font-size: 30px;
+        color: #eca300;
+        background-color: black;
+        width: 60px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+    }
+
+    button.btn.btn-link.collapsed i {
+        transform: rotate(0deg);
+    }
+
+    button.btn.btn-link i {
+        transform: rotate(180deg);
+        transition: 0.5s;
+    }
+</style>

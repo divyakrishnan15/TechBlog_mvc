@@ -1,32 +1,84 @@
-
+<div class="container">
+    <div class="accordion" id="accordionExample">
+<h1>Blogs: </h1>
 {{#each posts as |post|}}
-
-<div class="m-5">
-    <div class="accordion" id="myAccordion">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne">{{post.title}}</button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
-                <div class="card-body bg-dark">
-
-                    <a href="/posts/{{id}}" class="text-decoration-none">
-                        <pre>
-                            <code class="text-white">
-                                {{post.post_content}}
-                            </code>
-                        </pre>
-                    </a>
-
-                </div>
-                <div class="float-right"> -{{post.created_at}}</div>
-                <div class="float-right"> -{{post.user_id}}{{post.username}}</div>
+{{>homepage_allposts}}
+{{/each}}
 
 
-                {{!-- <a href="/edit" class="btn btn-primary my-2 my-sm-0 btn-md">Add Comment</a> --}}
-            </div>
-        </div>
     </div>
 </div>
-{{/each}}
+
+  <style>
+    .accordion { margin: 40px 0; }
+    .accordion .item { 
+        border: none; 
+        margin-bottom: 50px; 
+        background: none; 
+    } 
+    .t-p { 
+        color: black; 
+        padding: 40px 30px 0px 30px; 
+        background: rgba(193, 206, 216, 0.3); 
+    } 
+    .accordion .item .item-header h2 button.btn.btn-link { 
+        background: #333435; 
+        color: white; 
+        border-radius: 0px; 
+        font-family: 'Poppins'; 
+        font-size: 16px; 
+        font-weight: 400; 
+        line-height: 2.5; 
+        text-decoration: none; 
+    } 
+    .accordion .item .item-header { 
+        border-bottom: none; 
+        background: transparent; 
+        padding: 0px;
+        margin: 2px; 
+    } 
+    
+    .accordion .item .item-header h2 button { 
+        color: white;
+        font-size: 20px; 
+        padding: 15px; 
+        display: block; 
+        width: 100%; 
+        text-align: left; 
+    } 
+    
+    .accordion .item .item-header h2 .downarrow { 
+        float: right;
+        font-size: 30px; 
+        color: #eca300; 
+        background-color: black;
+        width: 60px;
+        height: 40px; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+        border-radius: 5px; 
+        } 
+        
+    button.btn.btn-link.collapsed i { transform: rotate(0deg); } 
+        
+    button.btn.btn-link i { 
+        transform: rotate(180deg);
+        transition: 0.5s; 
+    }
+  </style>
+
+<script>
+
+  const postTitleEle = document.querySelector('.postTitle')
+  console.log("postTitle =", postTitleEle.value) const postMsgEle =
+  document.querySelector('.postMsg') console.log("postMsg =", postMsgEle.value)
+  const addPostFormEle = document.querySelector('#addPostFormId') function
+  addPostForm(event) { event.preventDefault()
+  fetch('http://localhost:3001/api/posts', { method: "POST", body:
+  JSON.stringify({ "title": "a", "post_content": "[1,2,2,3]", "user_id": 1 }),
+  headers: { "Content-Type": "application/json" } }).then((adPostData) => {
+  console.log("add POst data = ", adPostData) }).catch((err) => {
+  console.log(err) }) } addPostFormEle.addEventListener('submit', addPostForm)
+
+</script>

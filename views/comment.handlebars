@@ -1,0 +1,254 @@
+{{!-- <div id="page-wrapper" class="container">
+    <div id="page-wrapper" class="container mt-5 w-100 signup">
+          <div class="accordion" id="accordionExample">
+          <h4 class="card-title mb-4">{{post.title}}</h4>
+
+
+          <div class="card-body bg-dark rounded">
+            <pre>
+                <code class="text-white">
+                      {{post.post_content}}
+                </code>
+            </pre>
+          </div>
+        </div>
+  </div>
+</div>
+
+</div> --}}
+
+<div class="container w-75 mt-5">
+    <div class="accordion" id="accordionExample">
+        <h4 class="card-title">{{post.title}}</h4>
+        {{!-- <form class="updateUserPostForm"> --}}
+          <pre class="bg-dark rounded text-white">
+              <code class="form-control dashboardEditText card-body bg-dark rounded text-white b">{{post.post_content}}</code>
+          </pre>
+        {{!-- </form> --}}
+    </div>
+</div>
+
+
+<!-- //comment form -->
+<div id="page-wrapper" class="container mt-5 w-75 signup">
+  <h4>Comment : </h4>
+  <form id="postCommentForm">
+    <div class="form-group">
+      <textarea class="form-control" id="CommentFormControlTextarea" rows="3"></textarea>
+    </div>
+
+    <div class="form-group row my-3">
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-primary" id="commentSubmitBtn">Post Your Comment</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+<!-- //DISPLAY ALL COMMENTS -->
+<div id="page-wrapper" class="container mt-3 w-100 comments"></div>
+{{!-- <div class="container mt-5 w-100"> --}}
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+      <div class="headings d-flex justify-content-between align-items-center mb-3">
+        {{!-- <h5>Comments</h5> --}}
+
+        {{!-- <div class="buttons">
+          <span class="badge bg-white d-flex flex-row align-items-center">
+            <span class="text-primary">Comments "ON"</span>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+            </div>
+          </span>
+        </div> --}}
+
+      </div>
+
+      {{#each post.comments as |comment|}}
+      <p>eachCommentId = {{comment.id}}</p>
+      
+      <div class="card p-3 shadow p-3 mb-3 bg-white rounded">
+
+        <div class="d-flex justify-content-between align-items-center ">
+          <div class="user d-flex flex-row align-items-center">
+            <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
+            <span><small class="font-weight-bold text-primary">{{comment.comment_text}}</small> <small
+                class="font-weight-bold">{{comment.comment_text}}</small></span>
+          </div>
+          <small>2 days ago</small>
+        </div>
+
+
+
+        <div class="action d-flex justify-content-between mt-2 align-items-center">
+
+          <div class="reply px-4">
+            <div class="float-right commentUpdate d-inline-block">
+              <svg xmlns="http://www.w3.org/2000/svg" height="1.25em" class="commentUpdateBtn" viewBox="0 0 576 512">
+                <style>
+                  .commentUpdateBtn {
+                    fill: #226cec
+                  }
+                </style>
+                <path
+                  d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+              </svg>
+            </div>
+            <div class="float-right commentDelete d-inline-block">
+              <svg xmlns="http://www.w3.org/2000/svg" height="1em" class="commentDeleteBtn" viewBox="0 0 448 512">
+                <style>
+                  .commentDeleteBtn {
+                    fill: #e22012
+                  }
+                </style>
+                <path
+                  d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="icons align-items-center">
+            <i class="fa fa-star text-warning"></i>
+            <i class="fa fa-check-circle-o check-icon"></i>
+          </div>
+
+        </div>
+
+
+      </div>
+      <br />
+      {{/each}}
+
+    </div>
+  </div>
+
+</div>
+{{!--
+<script src="/js/comment_js.js" /> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  {{!-- console.log('eachCommentId = ',eachCommentId) --}}
+
+  console.log({{post.comments.id}})
+
+  {{#each post as |i|}}
+      console.log({{i.comment_text}})
+  {{/each}}
+
+  const commentTextEle = document.querySelector('#CommentFormControlTextarea')
+  const commentUpdateEle = document.querySelector('.commentUpdate')
+  const commentDeleteEle = document.querySelector('.commentDelete')
+  const addCommentFormEle = document.querySelector('#postCommentForm')
+
+
+  const commentAddFormHandler = (event)=> {
+
+    event.preventDefault();
+    const comment_text = commentTextEle.value.trim();
+
+
+    const post_id_old = window.location.toString().split('/')[
+      window.location.toString().split('/').length - 1
+    ];
+    const post_id = post_id_old.split('?')[0]
+
+
+    fetch(`http://localhost:3001/api/comments`, {
+      method: "POST",
+      body: JSON.stringify({
+        "comment_text": comment_text,
+        "post_id": post_id,
+        "user_id": 3
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((addCommentData) => {
+      console.log("addCommentData = ", addCommentData)
+      if (addCommentData.status === 200) {
+        document.location.reload()
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+
+  const commentUpdateHandler = (id) => {
+    fetch(`http://localhost:3001/api/comments/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(
+        {
+          "post_id": 1,
+          "comment_text": "this is my first blog post",
+          "created_at": "2023-07-27T00:00:00.000Z",
+          "updated_at": "2023-07-28T00:00:00.000Z",
+          "post": {
+            "id": 1,
+            "title": "javascript",
+            "created_at": "2023-07-27T00:00:00.000Z",
+            "post_content": "const add = (a,b) "
+          }
+      }),
+      headers: {
+      "Content-Type": "application/json"
+    }
+  }).then((updateCommentData) => {
+    console.log("updateCommentData ", updateCommentData)
+  }).catch((err) => {
+    console.error(err)
+  })
+  }
+
+
+
+
+  const commentDeleteHandler = (id) => {
+    fetch(`http://localhost:3001/api/comments/${id}`, {
+      method: "DELETE"
+    }).then((deleteCommentData) => {
+      console.log("deleteCommentData ", deleteCommentData)
+    }).catch((err) => {
+      console.error(err)
+    })
+  }
+
+
+  addCommentFormEle.addEventListener('submit', commentAddFormHandler);
+
+  commentUpdateEle.addEventListener('click', ()=>commentUpdateHandler(1));
+
+  commentDeleteEle.addEventListener('click', 
+  ()=>commentDeleteHandler(1));
+
+
+
+</script>
+
+
+
+
+

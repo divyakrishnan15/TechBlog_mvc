@@ -5,9 +5,10 @@ const exphbs = require('express-handlebars')
 const session = require('express-session');
 const path = require('path');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const helpers = require('./utils/helpers');
 
 require('dotenv').config()
-const hbs = exphbs.create({});
+const hbs = exphbs.create({ helpers });
 
 const routes = require('./controllers');
 const sequelize = require('./config/connection')
@@ -19,6 +20,10 @@ const sess = {
   cookie: {
     // Stored in milliseconds
     maxAge: 24 * 60 * 60 * 1000, // expires after 1 day
+    // maxAge:300000,
+    httpOnly:true,
+    secure:false,
+    sameSite:'strict'
   },
   resave: false,
   saveUninitialized: true,

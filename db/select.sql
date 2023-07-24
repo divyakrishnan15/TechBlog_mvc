@@ -1,5 +1,10 @@
+show tables;
+
 select * from user;
 
-select * from post;
+select * from sessions;
 
-select * from comment;
+
+-- select * from post;
+
+-- select * from comment;
