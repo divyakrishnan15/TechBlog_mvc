@@ -75,7 +75,7 @@
   document.querySelector('.postMsg') console.log("postMsg =", postMsgEle.value)
   const addPostFormEle = document.querySelector('#addPostFormId') function
   addPostForm(event) { event.preventDefault()
-  fetch('http://localhost:3001/api/posts', { method: "POST", body:
+  fetch('/api/posts', { method: "POST", body:
   JSON.stringify({ "title": "a", "post_content": "[1,2,2,3]", "user_id": 1 }),
   headers: { "Content-Type": "application/json" } }).then((adPostData) => {
   console.log("add POst data = ", adPostData) }).catch((err) => {
