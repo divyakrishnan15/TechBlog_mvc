@@ -6,14 +6,13 @@ const { update } = require("../../models/User");
 router.get("/", (req, res) => {
   Post.findAll({
     attributes: ["id", "title", "created_at", "post_content", "user_id"],
-    include: {
+    include: [{
       model: User,
-      attributes: ["username", "twitter", "github", "email"],
-    },
-    include: {
+      attributes: ["username", "email"],
+    },{
       model: Comment,
       attributes: ["comment_text", "created_at", "updated_at"],
-    },
+    }]
   })
     .then((postData) => {
       if (!postData) {
