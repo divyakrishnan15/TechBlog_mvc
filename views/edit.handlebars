@@ -32,7 +32,7 @@
 
 
         console.log("update id 2 ==== ", dashboardEditText.innerText)
-        fetch(`http://localhost:3001/api/posts/${updateid}`, {
+        fetch(`/api/posts/${updateid}`, {
             method: "PUT",
             body: JSON.stringify({
                     "title":dashboardEditTitle.value, 

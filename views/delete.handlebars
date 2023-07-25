@@ -38,7 +38,7 @@
 
 
         console.log("delpostsId id 2 ==== ", delpostsId)
-        fetch(`http://localhost:3001/api/posts/${delpostsId}`, {
+        fetch(`/api/posts/${delpostsId}`, {
             method: "DELETE",
         }).then((delUserPostData) => {
             console.log(delUserPostData)

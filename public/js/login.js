@@ -11,7 +11,7 @@
 
   if (username && email && password) {
     // Send a POST request to the API endpoint
-    fetch('http://localhost:3001/api/users/login', {
+    fetch('/api/users/login', {
       method: 'POST',
       body: JSON.stringify({ username,email, password }),
       headers: { 'Content-Type': 'application/json' },
@@ -39,7 +39,7 @@ const signupFormHandler = (event) => {
   const password = document.querySelector('#signupPassword').value.trim();
 
   if (username && email && password) {
-    fetch('http://localhost:3001/api/users', {
+    fetch('/api/users', {
       method: 'POST',
       body: JSON.stringify({ username, email, password }),
       headers: { 'Content-Type': 'application/json' },
