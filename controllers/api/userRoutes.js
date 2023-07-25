@@ -125,7 +125,6 @@ router.post('/',(req,res)=>{
           req.session.loggedIn = true;
         }) 
 
-
         res.json(userData)
         console.log('sign up .then =',userData)
 

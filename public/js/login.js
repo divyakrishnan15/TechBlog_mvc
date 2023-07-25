@@ -1,48 +1,61 @@
-const loginFormHandler = async (event) => {
+
+
+  //UI LOGIN
+  const loginFormHandler = (event) => {
   event.preventDefault();
 
   // Collect values from the login form
-  const email = document.querySelector('#loginUsername').value.trim();
+  const username = document.querySelector('#loginUsername').value.trim();
+  const email = document.querySelector('#email').value.trim();
   const password = document.querySelector('#loginPassword').value.trim();
 
-  if (email && password) {
+  if (username && email && password) {
     // Send a POST request to the API endpoint
-    const response = await fetch('http://localhost:3001/api/users/login', {
+    fetch('http://localhost:3001/api/users/login', {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username,email, password }),
       headers: { 'Content-Type': 'application/json' },
-    });
+    }).then((loginData)=>loginData.json()).then((loginData)=>{
+      if (loginData) {
+        document.location.replace('/dashboard');
+      } else {
+        alert(response.statusText);
+      }
+    }).catch((err)=>{
+      console.log(err)
+    })
 
-    if (response.ok) {
-      // If successful, redirect the browser to the profile page
-      document.location.replace('/profile');
-    } else {
-      alert(response.statusText);
-    }
+    
   }
 };
 
 
-
-const signupFormHandler = async (event) => {
+//UI SIGN UP
+const signupFormHandler = (event) => {
   event.preventDefault();
 
-  const name = document.querySelector('#signupUsername').value.trim();
-  const email = document.querySelector('#email').value.trim();
+  const username = document.querySelector('#signupUsername').value.trim();
+  const email = document.querySelector('#signupemail').value.trim();
   const password = document.querySelector('#signupPassword').value.trim();
 
-  if (name && email && password) {
-    const response = await fetch('http://localhost:3001/api/users', {
+  if (username && email && password) {
+    fetch('http://localhost:3001/api/users', {
       method: 'POST',
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ username, email, password }),
       headers: { 'Content-Type': 'application/json' },
-    });
+    }).then((signUpData)=>{
+        console.log('login resposne = ',signUpData)
 
-    if (response.ok) {
-      document.location.replace('/dashboard');
-    } else {
-      alert(response.statusText);
-    }
+        if (signUpData) {
+          console.log('sign up success!')
+          document.location.replace('/dashboard')
+        } else {
+          alert(response.statusText);
+        }
+    }).catch((err)=>{
+      console.log(err)
+    })
+
   }
 };
 
