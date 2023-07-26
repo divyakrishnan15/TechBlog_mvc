@@ -13,7 +13,7 @@ console.log("delID = ",delID1)
         function addUserPostForm(event) {
             event.preventDefault()
 
-            fetch('http://localhost:3001/api/posts', {
+            fetch('api/posts', {
                 method: "POST",
                 body: JSON.stringify({
                     "title": postTitleEle.value,
@@ -52,7 +52,7 @@ console.log("delID = ",delID1)
 
 
         console.log("delpostsId id 2 ==== ", delpostsId)
-        fetch(`http://localhost:3001/api/posts/${delpostsId}`, {
+        fetch(`api/posts/${delpostsId}`, {
             method: "DELETE",
         }).then((delUserPostData) => {
             console.log(delUserPostData)

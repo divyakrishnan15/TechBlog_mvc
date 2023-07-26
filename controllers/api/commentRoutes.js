@@ -6,15 +6,14 @@ router.get('/',(req,res)=>{
     Comment.findAll({
         // attributes:['user_id','post_id','comment_text','created_at','updated_at'],
         attributes:['id','user_id','post_id','comment_text','created_at','updated_at'],
-        include:{
+        include:[{
             model:User,
             // attributes:{exlude:['password']}
-            attributes:['user_name','twitter','github','email'],
-        },
-        include:{
+            attributes:['id','username','email'],
+        },{
             model:Post,
             attributes:['id','title','created_at','post_content'],
-        },
+        }],
     }).then((commentData)=>{
         if(!commentData){
             res.status(404).json({message:'No Comment found'})
@@ -70,6 +69,8 @@ router.post('/',(req,res)=>{
         post_id:req.body.post_id
     }).then((commentData)=>{
         res.json(commentData)
+
+        
     }).catch((err)=>{
         res.status(500).json(err)
     })
