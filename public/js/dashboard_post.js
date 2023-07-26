@@ -13,7 +13,7 @@ console.log("delID = ",delID1)
         function addUserPostForm(event) {
             event.preventDefault()
 
-            fetch('api/posts', {
+            fetch('/api/posts', {
                 method: "POST",
                 body: JSON.stringify({
                     "title": postTitleEle.value,
@@ -52,7 +52,7 @@ console.log("delID = ",delID1)
 
 
         console.log("delpostsId id 2 ==== ", delpostsId)
-        fetch(`api/posts/${delpostsId}`, {
+        fetch(`/api/posts/${delpostsId}`, {
             method: "DELETE",
         }).then((delUserPostData) => {
             console.log(delUserPostData)
@@ -79,7 +79,7 @@ console.log("delID = ",delID1)
 
 
         console.log("update id 2 ==== ", dashboardEditText.innerText)
-        fetch(`http://localhost:3001/api/posts/${updateid}`, {
+        fetch(`/api/posts/${updateid}`, {
             method: "PUT",
             body: JSON.stringify({
                     "title":dashboardEditTitle.value, 
