@@ -116,6 +116,41 @@ npm i
  There are no test for this app but in future we have planned to add the test with JEST.
  ## Screenshot : 
  <a name="screenshot"></a> 
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/a8fa72ca-4926-4eec-8794-660e6f5a2ad2)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/6f8053af-6a7c-412c-809f-ca5d679dac82)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/55227f2a-5459-4142-9849-3717d82e0395)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/d02c28c5-8bcc-4b5f-ac4f-1728dcfe54a0)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/62e08292-6eba-4277-b918-c0f9b149bd21)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/e6d6bddd-e9b5-4e97-8fcb-3732924dfb96)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/42ede599-5be6-42f2-b6b0-099a30047d0b)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/2dcd9bd2-8f98-4d76-87ab-af4f4e550072)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/dc2faec6-572c-478b-8dad-5a046a10ec01)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/c3c3c2c3-fb72-4908-9b74-d058993d84a5)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/1f1a2f68-d54c-4623-a17d-2f4ed1aa59cf)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/b985da62-22b2-4e02-82d8-3db57500523c)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  #### Copyright © 2023, Divya Krishnan. Released under the [MIT License](https://choosealicense.com/licenses/mit/).
