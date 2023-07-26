@@ -105,7 +105,8 @@ npm i
    
  ## Watchme Video- (click on the video to play) : 
  <a name="Video"></a> 
- [![Watch the video](https://img.youtube.com/vi/1HmFZtpAr0s/maxresdefault.jpg)](https://youtu.be/1HmFZtpAr0s)
+ [![Watch the video](https://img.youtube.com/vi/1HmFZtpAr0s/maxresdefault.jpg)](https://youtu.be/1HmFZtpAr0s
+ )
 
  ## Contribution :  
  <a name="License"></a> 
