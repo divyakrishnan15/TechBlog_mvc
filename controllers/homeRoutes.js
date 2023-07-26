@@ -7,14 +7,13 @@ const withAuth = require("../utils/auth");
 router.get("/", (req, res) => {
   Post.findAll({
     attributes: ["id", "title", "created_at", "post_content", "user_id"],
-    include: {
+    include: [{
       model: User,
-      attributes: ["username", "twitter", "github", "email", "password"],
-    },
-    include: {
+      attributes: ["username", "email"],
+    },{
       model: Comment,
       attributes: ["comment_text", "created_at", "updated_at"],
-    },
+    }]
   })
     .then((postData) => {
       if (!postData) {
@@ -22,11 +21,11 @@ router.get("/", (req, res) => {
         return;
       }
       // res.json(postData)
-
       const posts = postData.map((post) => post.get({ plain: true }));
+      console.log(posts)
       res.render("homepage", {
         posts,
-        loggedIn: req.session.loggedIn,
+        user_session_data: req.session.user_session_data,
       });
     })
     .catch((err) => {
@@ -44,22 +43,17 @@ router.get("/posts/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
-    include: {
+    include: [{
       model: User,
-      attributes: [
-        "username",
-        "twitter",
-        "github",
-        "email",
-        "password",
-        "created_at",
-        "updated_at",
-      ],
-    },
-    include: {
+      attributes: ["username", "email"],
+    },{
       model: Comment,
-      attributes: ["comment_text", "created_at", "updated_at"],
-    },
+      attributes: ["id","comment_text", "created_at", "updated_at"],
+      include: {
+        model: User,
+        attributes: {exclude:['password']}
+      }
+    }]
   })
     .then((postData) => {
       if (!postData) {
@@ -69,7 +63,7 @@ router.get("/posts/:id", (req, res) => {
       // res.json(postData)
 
       const post = postData.get({ plain: true });
-      res.render("comment", { post, loggedIn: req.session.loggedIn });
+      res.render("comment", { post, user_session_data: req.session.user_session_data });
     })
     .catch((err) => {
       res.status(500).json(err);
@@ -82,14 +76,13 @@ router.get("/posts/:id", (req, res) => {
 router.get("/post", (req, res) => {
   Comment.findAll({
     attributes: ["id", "title", "created_at", "post_content", "user_id"],
-    include: {
+    include: [{
       model: User,
-      attributes: ["username", "twitter", "github", "email", "password"],
-    },
-    include: {
+      attributes: ["username", "email"],
+    },{
       model: Comment,
-      attributes: ["comment_text", "created_at", "updated_at"],
-    },
+      attributes: ["id","comment_text", "created_at", "updated_at"],
+    }]
   })
     .then((commentData) => {
       if (!commentData) {
@@ -101,7 +94,7 @@ router.get("/post", (req, res) => {
       const comment = commentData.map((post) => post.get({ plain: true }));
       res.render("comment", {
         comment,
-        loggedIn: req.session.loggedIn,
+        user_session_data: req.session.user_session_data,
       });
     })
     .catch((err) => {
@@ -124,7 +117,7 @@ router.get("/", async (req, res) => {
     res.render("homepage", {
       users,
       // TODO: Add a comment describing the functionality of this property
-      logged_in: req.session.logged_in,
+      user_session_data: req.session.user_session_data,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -135,7 +128,7 @@ router.get("/", async (req, res) => {
 
 // Login route
 router.get("/login", (req, res) => {
-  if (req.session.loggedIn) {
+  if (req.session.user_session_data) {
     res.redirect("/");
     return;
   }

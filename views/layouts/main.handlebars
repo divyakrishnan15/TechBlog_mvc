@@ -64,22 +64,22 @@
 
 
           <div class="navbar-nav ms-auto">
-            {{#if loggedIn.logged_in}}
+            {{#if user_session_data}}
               {{!-- <button class="btn btn-danger navbar-btn">{{logged_in.username}}</button> --}}
               {{!-- <script src="/js/logout.js"></script> --}}
-              <div class="btn-group">
-              <button type="button" class="btn btn-danger">{{loggedIn.username}}</button>
+              <div class="btn-group navbar-btn">
+              <button type="button" class="btn btn-danger">{{user_session_data.username}}</button>
               <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
               <ul class="dropdown-menu">
                 {{!-- <li><a class="dropdown-item" href="#">Profile</a></li> --}}
-                <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+                <li><a class="dropdown-item text-danger" onclick="logout()">Logout</a></li>
               </ul>
             </div>
             {{else}}
             {{!-- <button class="btn btn-danger navbar-btn" type="submit">Login</button> --}}
-            <a href="/login" class="btn btn-danger navbar-btn">Login</a>
+              <a href="/login" class="btn btn-danger navbar-btn">Login</a>
             {{/if}}
 
             
@@ -104,8 +104,17 @@
     </div>
 
 
-  {{#if loggedIn}}
-    <script src="/js/logout.js"></script>
+  {{#if user_session_data}}
+    {{!-- <script src="/js/logout.js"></script> --}}
+    <script>
+      function logout(){
+        fetch("http://localhost:3001/api/users/logout",{
+          "method":"POST"
+        }).then(() => {
+          document.location.replace("/")
+        })
+      }
+    </script>
   {{/if}}
 
 </body>

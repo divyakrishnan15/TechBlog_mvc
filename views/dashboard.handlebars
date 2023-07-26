@@ -57,6 +57,8 @@
 
     const userPostUpdateEle = document.querySelector('.userPostUpdate')
     const userPostDeleteEle = document.querySelector('.userPostDelete')
+    const user_session_id = "{{user_session_data.user_id}}"
+    console.log(user_session_id)
 
     const delID = document.location.toString().split('/')[document.location.toString().split('/').length-1]
     console.log("delID = ",delID)
@@ -69,7 +71,7 @@
                     body: JSON.stringify({
                         "title": postTitleEle.value,
                         "post_content": postMsgEle.innerText,
-                        "user_id": 1
+                        "user_id": user_session_id
                     }),
                     headers: {
                         "Content-Type": "application/json"

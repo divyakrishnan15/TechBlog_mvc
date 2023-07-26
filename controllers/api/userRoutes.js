@@ -27,20 +27,6 @@ router.get('/:id',(req,res)=>{
         where:{
             id:req.params.id
         },
-        // include: [
-        //     {
-        //       model: Post,
-        //       attributes: ['id', 'title', 'post_content', 'created_at']
-        //     },
-        //     {
-        //         model: Comment,
-        //         attributes: ['id', 'comment_text', 'created_at'],
-        //         include: {
-        //           model: Post,
-        //           attributes: ['title']
-        //         }
-        //     }
-        //   ]
     }).then((userData)=>{
         if(!userData){
             res.status(404).json({message:`No USER data found with id = ${req.params.id}`})
@@ -63,20 +49,6 @@ router.put('/:id',(req,res)=>{
             id:req.params.id
         },
         attributes:{exclude:['password']},
-        // include: [
-        //     {
-        //       model: Post,
-        //       attributes: ['id', 'title', 'post_content', 'created_at']
-        //     },
-        //     {
-        //         model: Comment,
-        //         attributes: ['id', 'comment_text', 'created_at'],
-        //         include: {
-        //           model: Post,
-        //           attributes: ['title']
-        //         }
-        //     }
-        //   ]
     }).then((userData)=>{
         if(!userData){
             res.status(404).json({message:`No USER data found with id = ${req.params.id}`})
@@ -119,12 +91,17 @@ router.post('/',(req,res)=>{
         password:req.body.password
     }).then((userData)=>{
 
-        req.session.save(() => {
-          req.session.username = userData.id,
-          req.session.email = userData.id,
-          req.session.loggedIn = true;
-        }) 
+        // req.session.save(() => {
+        //   req.session.username = userData.id,
+        //   req.session.email = userData.id,
+        //   req.session.user_session_data = true;
+        // }) 
 
+        req.session.user_session_data = {
+          username: userData.username,
+          user_id: userData.id
+        }
+        console.log(req.session.user_session_data)
         res.json(userData)
         console.log('sign up .then =',userData)
 
@@ -133,52 +110,56 @@ router.post('/',(req,res)=>{
     })
 })
 
-
-
-//USER LOGIN
 router.post('/login', (req, res) => {
   
-    User.findOne({ 
-      where: { email: req.body.email } 
-    }).then((loginData)=>{
-      if (!loginData) {
-        res
-          .status(400)
-          .json({ message: 'Incorrect email or password, please try again /or SIGN UP' });
-        return;
-      }
-  
-      const validPassword = loginData.checkPassword(req.body.password);
-  
-      if (!validPassword) {
-        res
-          .status(400)
-          .json({ message: 'Incorrect email or password, please try again' });
-        return;
-      }
-  
-      req.session.save(() => {
-        req.session.user_id = loginData.id;
-        req.session.username = loginData.username;
-        req.session.logged_in = true;
-      })
-        
-        res.json({ user: loginData, message: 'You are now logged in!' });
-      
+  User.findOne({ 
+    where: { email: req.body.email } 
+  }).then((loginData)=>{
+    if (!loginData) {
+      res
+        .status(400)
+        .json({ message: 'Incorrect email or password, please try again /or SIGN UP' });
+      return;
+    }
 
-    }).catch((err)=> {
-    res.status(400).json(err);
-  })
+    const validPassword = loginData.checkPassword(req.body.password);
+
+    if (!validPassword) {
+      res
+        .status(400)
+        .json({ message: 'Incorrect email or password, please try again' });
+      return;
+    }
+
+    // req.session.save(() => {
+    //   req.session.user_id = loginData.id;
+    //   req.session.username = loginData.username;
+    //   req.session.logged_in = true;
+    // })
+
+    req.session.user_session_data = {
+      username: loginData.username,
+      user_id: loginData.id
+    }
+      
+      res.json({ user: loginData, message: 'You are now logged in!' });
+    
+
+  }).catch((err)=> {
+  res.status(400).json(err);
+})
 })
 
 
 
 
 router.post('/logout', (req, res) => {
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
+  if (req.session.user_session_data) {
+    // req.session.destroy(() => {
+    //   res.status(204).end();
+    // });
+    delete req.session.user_session_data;
+    res.json("SUCCESS")
   } else {
     res.status(404).end();
   }

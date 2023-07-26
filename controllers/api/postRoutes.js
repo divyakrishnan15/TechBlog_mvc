@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { User, Post, Comment } = require("../../models");
-const { update } = require("../../models/User");
 
 //POST GET
 router.get("/", (req, res) => {
@@ -11,7 +10,11 @@ router.get("/", (req, res) => {
       attributes: ["username", "email"],
     },{
       model: Comment,
-      attributes: ["comment_text", "created_at", "updated_at"],
+      attributes: ["id","comment_text", "created_at", "updated_at"],
+      include: {
+        model: User,
+        attributes: {exclude:['password']}
+      }
     }]
   })
     .then((postData) => {
@@ -36,22 +39,17 @@ router.get("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
-    include: {
+    include: [{
       model: User,
-      attributes: [
-        "username",
-        "twitter",
-        "github",
-        "email",
-        "password",
-        "created_at",
-        "updated_at",
-      ],
-    },
-    include: {
+      attributes: {exclude:['password']},
+    },{
       model: Comment,
-      attributes: ["comment_text", "created_at", "updated_at"],
-    },
+      attributes: ["id","comment_text", "created_at", "updated_at"],
+      include: {
+        model: User,
+        attributes: {exclude:['password']}
+      }
+    }]
   })
     .then((postData) => {
       if (!postData) {

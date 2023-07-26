@@ -6,37 +6,42 @@ router.get("/", (req, res) => {
     //   res.redirect("/");
     //   return;
     // }
-  
-    Post.findAll({
-      attributes: ["id", "title", "created_at", "post_content", "user_id"],
-      where: {
-        user_id: 1,
-      },
-      include: {
-        model: User,
-        attributes: ["username", "twitter", "github", "email", "password"],
-      },
-      include: {
-        model: Comment,
-        attributes: ["comment_text", "created_at", "updated_at"],
-      },
-    })
-      .then((postData) => {
-        if (!postData) {
-          res.status(404).json({ message: "No Post Data found" });
-          return;
-        }
-        // res.json(postData)
-  
-        const posts = postData.map((post) => post.get({ plain: true }));
-        res.render("dashboard", {
-          posts,
-          loggedIn: req.session.loggedIn,
-        });
+    
+    if(req.session.user_session_data){
+      Post.findAll({
+        attributes: ["id", "title", "created_at", "post_content", "user_id"],
+        where: {
+          user_id: req.session.user_session_data.user_id,
+        },
+        include: [{
+          model: User,
+          attributes: ["username", "email"],
+        },{
+          model: Comment,
+          attributes: ["comment_text", "created_at", "updated_at"],
+        }]
       })
-      .catch((err) => {
-        res.status(500).json(err);
-      });
+        .then((postData) => {
+          if (!postData) {
+            res.status(404).json({ message: "No Post Data found" });
+            return;
+          }
+          // res.json(postData)
+    
+          const posts = postData.map((post) => post.get({ plain: true }));
+          res.render("dashboard", {
+            posts,
+            user_session_data: req.session.user_session_data,
+          });
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
+    }else{
+      res.render("not_logged_in", {
+        user_session_data: req.session.user_session_data,
+      })
+    }
   
   });
 
@@ -50,14 +55,13 @@ router.get("/update/:id", (req, res) => {
       where: {
         id: req.params.id,
       },
-      include: {
+      include: [{
         model: User,
-        attributes: ["username", "twitter", "github", "email", "password"],
-      },
-      include: {
+        attributes: ["username", "email"],
+      },{
         model: Comment,
-        attributes: ["comment_text", "created_at", "updated_at"],
-      },
+        attributes: ["id","comment_text", "created_at", "updated_at"],
+      }]
     })
       .then((userPostUpdateData) => {
         if (!userPostUpdateData) {
@@ -69,7 +73,7 @@ router.get("/update/:id", (req, res) => {
         const editposts = userPostUpdateData.get({ plain: true });
         res.render("edit", {
           editposts,
-          loggedIn: req.session.loggedIn,
+          user_session_data: req.session.user_session_data,
         });
       })
       .catch((err) => {
@@ -87,14 +91,13 @@ router.get("/update/:id", (req, res) => {
       where: {
         id: req.params.id,
       },
-      include: {
+      include: [{
         model: User,
-        attributes: ["username", "twitter", "github", "email", "password"],
-      },
-      include: {
+        attributes: ["username", "email"],
+      },{
         model: Comment,
-        attributes: ["comment_text", "created_at", "updated_at"],
-      },
+        attributes: ["id","comment_text", "created_at", "updated_at"],
+      }]
     })
       .then((userPostDeleteData) => {
         if (!userPostDeleteData) {
@@ -102,11 +105,13 @@ router.get("/update/:id", (req, res) => {
           return;
         }
         // res.json(postData)
+
+        // console.log()
   
         const delposts = userPostDeleteData.get({ plain: true });
         res.render("delete", {
           delposts,
-          loggedIn: req.session.loggedIn,
+          user_session_data: req.session.user_session_data,
         });
       })
       .catch((err) => {
