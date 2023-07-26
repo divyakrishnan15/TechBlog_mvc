@@ -24,7 +24,7 @@
     const post_id = post_id_old.split('?')[0]
 
 
-    fetch(`http://localhost:3001/api/comments`, {
+    fetch(`/api/comments`, {
       method: "POST",
       body: JSON.stringify({
         "comment_text": comment_text,
@@ -46,7 +46,7 @@
 
 
   const commentUpdateHandler = (id) => {
-    fetch(`http://localhost:3001/api/comments/${id}`, {
+    fetch(`/api/comments/${id}`, {
       method: "PUT",
       body: JSON.stringify(
         {
@@ -75,7 +75,7 @@
 
 
   const commentDeleteHandler = (id) => {
-    fetch(`http://localhost:3001/api/comments/${id}`, {
+    fetch(`/api/comments/${id}`, {
       method: "DELETE"
     }).then((deleteCommentData) => {
       console.log("deleteCommentData ", deleteCommentData)
