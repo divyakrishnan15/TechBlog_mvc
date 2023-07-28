@@ -116,26 +116,16 @@ router.post('/login', (req, res) => {
     where: { email: req.body.email } 
   }).then((loginData)=>{
     if (!loginData) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again /or SIGN UP' });
+      res.status(400).json({ message: 'Incorrect email or password, please try again /or SIGN UP' });
       return;
     }
 
     const validPassword = loginData.checkPassword(req.body.password);
 
     if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
+      res.status(400).json({ message: 'Incorrect email or password, please try again' });
       return;
     }
-
-    // req.session.save(() => {
-    //   req.session.user_id = loginData.id;
-    //   req.session.username = loginData.username;
-    //   req.session.logged_in = true;
-    // })
 
     req.session.user_session_data = {
       username: loginData.username,
@@ -152,20 +142,14 @@ router.post('/login', (req, res) => {
 
 
 
-
 router.post('/logout', (req, res) => {
   if (req.session.user_session_data) {
-    // req.session.destroy(() => {
-    //   res.status(204).end();
-    // });
     delete req.session.user_session_data;
-    res.json("SUCCESS")
+    res.json("logout SUCCESS")
   } else {
     res.status(404).end();
   }
 });
-
-
 
 
 
