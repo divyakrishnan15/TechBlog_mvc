@@ -117,29 +117,40 @@ npm i
  There are no test for this app but in future we have planned to add the test with JEST.
  ## Screenshot : 
  <a name="screenshot"></a> 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/a8fa72ca-4926-4eec-8794-660e6f5a2ad2)
 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/6f8053af-6a7c-412c-809f-ca5d679dac82)
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/17ef1dad-5f8b-45b4-8aaa-217b0237e505)
 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/55227f2a-5459-4142-9849-3717d82e0395)
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/b695e686-c975-43a7-a3d2-5467e1e99ff2)
 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/d02c28c5-8bcc-4b5f-ac4f-1728dcfe54a0)
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/e49dc7dd-bb57-454b-a108-66e84de1ae48)
 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/62e08292-6eba-4277-b918-c0f9b149bd21)
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/8adb2e60-39d1-40d2-8ac1-a631bf6571c3)
 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/e6d6bddd-e9b5-4e97-8fcb-3732924dfb96)
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/3fae1063-c871-43bc-814b-e8571fad9a7a)
 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/42ede599-5be6-42f2-b6b0-099a30047d0b)
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/5a262311-2bbc-4cb1-8291-67fb1c6a6218)
 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/2dcd9bd2-8f98-4d76-87ab-af4f4e550072)
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/ca630aa5-7e38-46e3-9b37-23ccf99dc5d2)
 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/dc2faec6-572c-478b-8dad-5a046a10ec01)
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/a0a2c8c0-0167-4ad5-a01f-1d321275f5ed)
 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/c3c3c2c3-fb72-4908-9b74-d058993d84a5)
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/b07da7ed-a553-4518-a21d-f801159ddda0)
 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/1f1a2f68-d54c-4623-a17d-2f4ed1aa59cf)
+Add comment:
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/b135c346-1cc6-48fa-8f3e-de01e1d82fe7)
 
- ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/b985da62-22b2-4e02-82d8-3db57500523c)
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/70e61c12-c93d-449a-b732-9f00308bf73e)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
