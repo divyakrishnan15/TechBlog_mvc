@@ -108,7 +108,7 @@
     {{!-- <script src="/js/logout.js"></script> --}}
     <script>
       function logout(){
-        fetch("http://localhost:3001/api/users/logout",{
+        fetch("/api/users/logout",{
           "method":"POST"
         }).then(() => {
           document.location.replace("/")
