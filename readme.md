@@ -120,6 +120,9 @@ npm i
 
  ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/17ef1dad-5f8b-45b4-8aaa-217b0237e505)
 
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/bda080fe-698f-4768-b9f3-87e956af0088)
+
+
  ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/b695e686-c975-43a7-a3d2-5467e1e99ff2)
 
  ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/e49dc7dd-bb57-454b-a108-66e84de1ae48)
