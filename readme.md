@@ -141,6 +141,14 @@ Add comment:
 
  ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/70e61c12-c93d-449a-b732-9f00308bf73e)
 
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/b1f731b3-d407-42bd-a170-04cfabe02c74)
+
+ ![image](https://github.com/divyakrishnan15/TechBlog_mvc/assets/40469923/3c00b405-706b-4d73-ae35-e9c4e197b6e4)
+
+ 
+
+
+
 
 
 
